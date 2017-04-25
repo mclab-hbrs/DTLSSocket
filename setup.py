@@ -38,8 +38,9 @@ setup(
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     author      = "Jannis Konrad",
     author_email= "Jannis.Konrad@h-brs.de",
-    url         = "https://git.fslab.de/jkonra2m/tinydtls-cython"
+    url         = "https://git.fslab.de/jkonra2m/tinydtls-cython",
     py_modules  = [ "DTLSSocket", ],
     cmdclass    = {"build_ext": prepare_tinydtls},
     ext_modules = cy_build,
+    data_files  = [('tinydtls', ['tinydtls/LICENSE'])]
     )
