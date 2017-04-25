@@ -42,5 +42,4 @@ setup(
     py_modules  = [ "DTLSSocket", ],
     cmdclass    = {"build_ext": prepare_tinydtls},
     ext_modules = cy_build,
-    data_files  = [('tinydtls', ['tinydtls/LICENSE'])]
     )
