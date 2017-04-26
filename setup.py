@@ -11,7 +11,8 @@ class prepare_tinydtls(build_ext):
             print("Running:", " ".join(args))
             subprocess.check_call(args, cwd="./tinydtls")
         commands = [
-            ["autoreconf", "-i"],
+            ["autoconf"],
+            ["autoheader"],
             ["./configure", "--without-ecc"],
             ]
         for command in commands:
