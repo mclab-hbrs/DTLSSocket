@@ -41,7 +41,7 @@ setup(
     author      = "Jannis Konrad",
     author_email= "Jannis.Konrad@h-brs.de",
     url         = "https://git.fslab.de/jkonra2m/tinydtls-cython",
-    py_modules  = [ "DTLSSocket", ],
+    py_modules  = [ "DTLSSocket.DTLSSocket"],
     cmdclass    = {"build_ext": prepare_tinydtls},
     ext_modules = cy_build,
     )

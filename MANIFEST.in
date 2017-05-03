@@ -1,2 +1,2 @@
-recursive-include tinydtls *.h LICENSE ABOUT.md configure.ac CONTRIBUTING.md README Makefile.in doc/Doxyfile.in
-include dtls.pyx LICENSE
+recursive-include DTLSSocket/tinydtls *.h LICENSE ABOUT.md configure.ac CONTRIBUTING.md README Makefile.in doc/Doxyfile.in
+include DTLSSocket/dtls.pyx LICENSE
