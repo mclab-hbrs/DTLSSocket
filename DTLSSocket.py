@@ -1,4 +1,5 @@
-import socket, dtls, time
+import socket, time
+import lowlevel.dtls as dtls
 
 DTLS_CLIENT = dtls.DTLS_CLIENT
 DTLS_SERVER = dtls.DTLS_SERVER
@@ -11,11 +12,12 @@ class DTLSSocket():
   outancbuff = None
   _sock = None
   
-  def __init__(self, pskId=b"Client_identity", pskStore={b"Client_identity": b"secretPSK"}):
+  def __init__(self, pskId=b"Client_identity", pskStore={b"Client_identity": b"secretPSK"}, logLevel = dtls.DTLS_LOG_EMERG):
     self._sock = socket.socket(family=socket.AF_INET6, type=socket.SOCK_DGRAM)
     self._sock.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_RECVPKTINFO, 1)
     self.d = dtls.DTLS(read=self._read, write=self._write, event=self._event, pskId=pskId, pskStore=pskStore)
-    print("Init done:", self._sock, self.d)
+    self.d.setLogLevel(logLevel)
+    #print("Init done:", self._sock, self.d)
   
   def __del__(self):
     self.connected.clear()
@@ -121,7 +123,7 @@ class DTLSSocket():
                 print("Debug: dst =", dst)
                 mc = True
       if mc:
-        ret = self.d.handleMessageAddr(dst[0], dst[1], data, mc)
+        ret = self.d.handleMessageAddr(dst[0], dst[1], data)
         if ret != 0:
           print("handleMessageAddr returned", ret)
           raise BlockingIOError
@@ -129,7 +131,7 @@ class DTLSSocket():
         addr, port = src[:2]
         addr = addr.split("%")[0]
         #print("recvmsg call handleMessageAddr with:", addr, port)
-        ret = self.d.handleMessageAddr(addr, port, data, mc)
+        ret = self.d.handleMessageAddr(addr, port, data)
         if ret != 0:
           print("handleMessageAddr returned", ret)
           raise BlockingIOError
