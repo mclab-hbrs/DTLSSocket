@@ -1,5 +1,5 @@
 import socket, time
-import lowlevel.dtls as dtls
+from . import dtls
 
 DTLS_CLIENT = dtls.DTLS_CLIENT
 DTLS_SERVER = dtls.DTLS_SERVER
@@ -16,7 +16,7 @@ class DTLSSocket():
     self._sock = socket.socket(family=socket.AF_INET6, type=socket.SOCK_DGRAM)
     self._sock.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_RECVPKTINFO, 1)
     self.d = dtls.DTLS(read=self._read, write=self._write, event=self._event, pskId=pskId, pskStore=pskStore)
-    self.d.setLogLevel(logLevel)
+    dtls.setLogLevel(logLevel)
     #print("Init done:", self._sock, self.d)
   
   def __del__(self):
@@ -66,7 +66,7 @@ class DTLSSocket():
         print("unknown MC", address, "not in", self.connected)
         return 0 #Not Client in MC-Group, aiocoap wantes to answer MC-PUT?
       
-      print("connecting...", address)
+      #print("connecting...", address)
       timeout = self.gettimeout()
       self.settimeout(1.0)
       

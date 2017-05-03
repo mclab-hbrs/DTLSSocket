@@ -9,7 +9,7 @@ class prepare_tinydtls(build_ext):
     def run(self):
         def run_command(args):
             print("Running:", " ".join(args))
-            subprocess.check_call(args, cwd="./lowlevel/tinydtls")
+            subprocess.check_call(args, cwd="./DTLSSocket/tinydtls")
         commands = [
             ["autoconf"],
             ["autoheader"],
@@ -20,13 +20,13 @@ class prepare_tinydtls(build_ext):
         build_ext.run(self)
 
 cy_build = cythonize([
-      Extension("lowlevel.dtls",
-                ["lowlevel/dtls.pyx", "lowlevel/tinydtls/dtls.c", "lowlevel/tinydtls/crypto.c",
-                 "lowlevel/tinydtls/ccm.c", "lowlevel/tinydtls/hmac.c", "lowlevel/tinydtls/netq.c",
-                 "lowlevel/tinydtls/peer.c", "lowlevel/tinydtls/dtls_time.c",
-                 "lowlevel/tinydtls/session.c", "lowlevel/tinydtls/dtls_debug.c",
-                 "lowlevel/tinydtls/aes/rijndael.c", "lowlevel/tinydtls/sha2/sha2.c"],
-                include_dirs=['lowlevel/tinydtls'],
+      Extension("DTLSSocket.dtls",
+                ["DTLSSocket/dtls.pyx", "DTLSSocket/tinydtls/dtls.c", "DTLSSocket/tinydtls/crypto.c",
+                 "DTLSSocket/tinydtls/ccm.c", "DTLSSocket/tinydtls/hmac.c", "DTLSSocket/tinydtls/netq.c",
+                 "DTLSSocket/tinydtls/peer.c", "DTLSSocket/tinydtls/dtls_time.c",
+                 "DTLSSocket/tinydtls/session.c", "DTLSSocket/tinydtls/dtls_debug.c",
+                 "DTLSSocket/tinydtls/aes/rijndael.c", "DTLSSocket/tinydtls/sha2/sha2.c"],
+                include_dirs=['DTLSSocket/tinydtls'],
                 define_macros=[('DTLSv12', '1'),
                                ('WITH_SHA256', '1'),
                                ('DTLS_CHECK_CONTENTTYPE', '1'),
