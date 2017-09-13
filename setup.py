@@ -1,3 +1,4 @@
+import os.path
 import subprocess
 
 from distutils.core import setup
@@ -9,8 +10,9 @@ class prepare_tinydtls(build_ext):
     def run(self):
         def run_command(args):
             print("Running:", " ".join(args))
-            subprocess.check_call(args, cwd="./DTLSSocket/tinydtls")
+            subprocess.check_call(args, cwd=os.path.join(os.path.dirname(__file__), "./DTLSSocket/tinydtls"))
         commands = [
+            ["git", "submodule", "update", "--init"],
             ["autoconf"],
             ["autoheader"],
             ["./configure", "--without-ecc"],
