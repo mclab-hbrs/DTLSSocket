@@ -1,4 +1,5 @@
-import dtls, time, socket
+from DTLSSocket import dtls
+import time, socket
 
 sock = socket.socket(family=socket.AF_INET6, type=socket.SOCK_DGRAM)
 sock.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_RECVPKTINFO, 1)
