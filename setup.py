@@ -17,14 +17,14 @@ class prepare_tinydtls(build_ext):
             ["./configure", "--without-ecc"],
             ]
         if not os.path.exists(os.path.join(os.path.dirname(__file__), 'DTLSSocket','tinydtls','dtls.c')):
-            ["git", "submodule", "update", "--init"],
+            run_command(["git", "submodule", "update", "--init"])
         for command in commands:
             run_command(command)
         build_ext.run(self)
 
 cy_build = cythonize([
       Extension("DTLSSocket.dtls",
-                ["DTLSSocket/dtls.pyx", "DTLSSocket/tdtls.pxd",
+                ["DTLSSocket/dtls.pyx",
                  "DTLSSocket/tinydtls/dtls.c", "DTLSSocket/tinydtls/crypto.c",
                  "DTLSSocket/tinydtls/ccm.c", "DTLSSocket/tinydtls/hmac.c", "DTLSSocket/tinydtls/netq.c",
                  "DTLSSocket/tinydtls/peer.c", "DTLSSocket/tinydtls/dtls_time.c",
