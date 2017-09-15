@@ -23,7 +23,8 @@ class prepare_tinydtls(build_ext):
 
 cy_build = cythonize([
       Extension("DTLSSocket.dtls",
-                ["DTLSSocket/dtls.pyx", "DTLSSocket/tinydtls/dtls.c", "DTLSSocket/tinydtls/crypto.c",
+                ["DTLSSocket/dtls.pyx", "DTLSSocket/tdtls.pxd",
+                 "DTLSSocket/tinydtls/dtls.c", "DTLSSocket/tinydtls/crypto.c",
                  "DTLSSocket/tinydtls/ccm.c", "DTLSSocket/tinydtls/hmac.c", "DTLSSocket/tinydtls/netq.c",
                  "DTLSSocket/tinydtls/peer.c", "DTLSSocket/tinydtls/dtls_time.c",
                  "DTLSSocket/tinydtls/session.c", "DTLSSocket/tinydtls/dtls_debug.c",
