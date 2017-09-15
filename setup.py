@@ -10,13 +10,14 @@ class prepare_tinydtls(build_ext):
     def run(self):
         def run_command(args):
             print("Running:", " ".join(args))
-            subprocess.check_call(args, cwd=os.path.join(os.path.dirname(__file__), "./DTLSSocket/tinydtls"))
+            subprocess.check_call(args, cwd=os.path.join(os.path.dirname(__file__), "DTLSSocket','tinydtls"))
         commands = [
-            ["git", "submodule", "update", "--init"],
             ["autoconf"],
             ["autoheader"],
             ["./configure", "--without-ecc"],
             ]
+        if not os.path.exists(os.path.join(os.path.dirname(__file__), 'DTLSSocket','tinydtls','dtls.c')):
+            ["git", "submodule", "update", "--init"],
         for command in commands:
             run_command(command)
         build_ext.run(self)
