@@ -10,7 +10,7 @@ class prepare_tinydtls(build_ext):
     def run(self):
         def run_command(args):
             print("Running:", " ".join(args))
-            subprocess.check_call(args, cwd=os.path.join(os.path.dirname(__file__), "DTLSSocket','tinydtls"))
+            subprocess.check_call(args, cwd=os.path.join(os.path.dirname(__file__), "DTLSSocket","tinydtls"))
         commands = [
             ["autoconf"],
             ["autoheader"],
@@ -40,7 +40,7 @@ cy_build = cythonize([
 
 setup(
     name="DTLSSocket",
-    version='0.1.0',
+    version='0.1.1',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     author      = "Jannis Konrad",
     author_email= "Jannis.Konrad@h-brs.de",
