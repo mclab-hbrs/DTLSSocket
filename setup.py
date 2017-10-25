@@ -48,4 +48,6 @@ setup(
     py_modules  = [ "DTLSSocket.DTLSSocket"],
     cmdclass    = {"build_ext": prepare_tinydtls},
     ext_modules = cy_build,
+    setup_requires = [ "Cython==0.27.2" ],
+    install_requires = [ "Cython==0.27.2" ],
     )
