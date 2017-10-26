@@ -68,4 +68,5 @@ setup(
     cmdclass    = {"build_ext": prepare_tinydtls},
     ext_modules = ext_modules,
     setup_requires = [ CYTHON_VERSION ],
+    install_requires = [ CYTHON_VERSION ],
     )
