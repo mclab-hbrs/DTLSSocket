@@ -29,34 +29,33 @@ try:
 except:
     from setuptools.dist import Distribution
     Distribution(dict(setup_requires=CYTHON_VERSION))
-
-def get_ext_modules():
+finally:
     from Cython.Build import cythonize
-    return cythonize([
-          Extension("DTLSSocket.dtls",
-                    [
-                     "DTLSSocket/dtls.pyx",
-                     "DTLSSocket/tinydtls/ccm.c",
-                     "DTLSSocket/tinydtls/crypto.c",
-                     "DTLSSocket/tinydtls/dtls.c",
-                     "DTLSSocket/tinydtls/dtls_debug.c",
-                     "DTLSSocket/tinydtls/dtls_time.c",
-                     "DTLSSocket/tinydtls/hmac.c",
-                     "DTLSSocket/tinydtls/netq.c",
-                     "DTLSSocket/tinydtls/peer.c",
-                     "DTLSSocket/tinydtls/session.c",
-                     "DTLSSocket/tinydtls/aes/rijndael.c",
-                     "DTLSSocket/tinydtls/sha2/sha2.c"
-                     ],
-                    include_dirs=['DTLSSocket/tinydtls'],
-                    define_macros=[('DTLSv12', '1'),
-                                   ('WITH_SHA256', '1'),
-                                   ('DTLS_CHECK_CONTENTTYPE', '1'),
-                                   ('_GNU_SOURCE', '1')],
-                    undef_macros = [ "NDEBUG" ],
-                    )])
 
-ext_modules = get_ext_modules()
+ext_modules = cythonize([
+      Extension("DTLSSocket.dtls",
+                [
+                 "DTLSSocket/dtls.pyx",
+                 "DTLSSocket/tinydtls/ccm.c",
+                 "DTLSSocket/tinydtls/crypto.c",
+                 "DTLSSocket/tinydtls/dtls.c",
+                 "DTLSSocket/tinydtls/dtls_debug.c",
+                 "DTLSSocket/tinydtls/dtls_time.c",
+                 "DTLSSocket/tinydtls/hmac.c",
+                 "DTLSSocket/tinydtls/netq.c",
+                 "DTLSSocket/tinydtls/peer.c",
+                 "DTLSSocket/tinydtls/session.c",
+                 "DTLSSocket/tinydtls/aes/rijndael.c",
+                 "DTLSSocket/tinydtls/sha2/sha2.c"
+                 ],
+                include_dirs=['DTLSSocket/tinydtls'],
+                define_macros=[('DTLSv12', '1'),
+                               ('WITH_SHA256', '1'),
+                               ('DTLS_CHECK_CONTENTTYPE', '1'),
+                               ('_GNU_SOURCE', '1')],
+                undef_macros = [ "NDEBUG" ],
+                )])
+
 
 setup(
     name="DTLSSocket",
