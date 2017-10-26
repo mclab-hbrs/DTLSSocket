@@ -59,7 +59,7 @@ ext_modules = cythonize([
 
 setup(
     name="DTLSSocket",
-    version='0.1.3',
+    version='0.1.4',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     author      = "Jannis Konrad",
     author_email= "Jannis.Konrad@h-brs.de",
