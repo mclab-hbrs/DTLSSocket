@@ -1,9 +1,9 @@
 import os.path
 import subprocess
 
-from distutils.core import setup
-from distutils.extension import Extension
-from distutils.command.build_ext import build_ext
+from setuptools import setup
+from setuptools.extension import Extension
+from setuptools.command.build_ext import build_ext
 
 CYTHON_VERSION = 'Cython==0.27.2'
 
@@ -59,7 +59,7 @@ ext_modules = cythonize([
 
 setup(
     name="DTLSSocket",
-    version='0.1.4',
+    version='0.1.5',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     author      = "Jannis Konrad",
     author_email= "Jannis.Konrad@h-brs.de",
