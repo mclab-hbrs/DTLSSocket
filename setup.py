@@ -5,8 +5,6 @@ from setuptools import setup
 from setuptools.extension import Extension
 from setuptools.command.build_ext import build_ext
 
-CYTHON_VERSION = 'Cython==0.27.2'
-
 class prepare_tinydtls(build_ext):
     def run(self):
         def run_command(args):
@@ -23,17 +21,17 @@ class prepare_tinydtls(build_ext):
             run_command(command)
         build_ext.run(self)
 
-# force setuptools to install Cython before proceeding
-try:
-    from Cython.Build import cythonize
-except:
-    from setuptools.dist import Distribution
-    Distribution(dict(setup_requires=CYTHON_VERSION))
-finally:
-    from Cython.Build import cythonize
-
-ext_modules = cythonize([
-      Extension("DTLSSocket.dtls",
+setup(
+    name="DTLSSocket",
+    version='0.1.6',
+    description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
+    author      = "Jannis Konrad",
+    author_email= "Jannis.Konrad@h-brs.de",
+    url         = "https://git.fslab.de/jkonra2m/tinydtls-cython",
+    py_modules  = [ "DTLSSocket.DTLSSocket"],
+    cmdclass    = {"build_ext": prepare_tinydtls},
+    setup_requires = [ "cython", ],
+    ext_modules = [Extension("DTLSSocket.dtls",
                 [
                  "DTLSSocket/dtls.pyx",
                  "DTLSSocket/tinydtls/ccm.c",
@@ -54,19 +52,5 @@ ext_modules = cythonize([
                                ('DTLS_CHECK_CONTENTTYPE', '1'),
                                ('_GNU_SOURCE', '1')],
                 undef_macros = [ "NDEBUG" ],
-                )])
-
-
-setup(
-    name="DTLSSocket",
-    version='0.1.5',
-    description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
-    author      = "Jannis Konrad",
-    author_email= "Jannis.Konrad@h-brs.de",
-    url         = "https://git.fslab.de/jkonra2m/tinydtls-cython",
-    py_modules  = [ "DTLSSocket.DTLSSocket"],
-    cmdclass    = {"build_ext": prepare_tinydtls},
-    ext_modules = ext_modules,
-    setup_requires = [ CYTHON_VERSION ],
-    install_requires = [ CYTHON_VERSION ],
+                ),]
     )
