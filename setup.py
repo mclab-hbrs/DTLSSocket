@@ -23,14 +23,15 @@ class prepare_tinydtls(build_ext):
 
 setup(
     name="DTLSSocket",
-    version='0.1.6',
+    version='0.1.7',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     author      = "Jannis Konrad",
     author_email= "Jannis.Konrad@h-brs.de",
     url         = "https://git.fslab.de/jkonra2m/tinydtls-cython",
     py_modules  = [ "DTLSSocket.DTLSSocket"],
     cmdclass    = {"build_ext": prepare_tinydtls},
-    setup_requires = [ "cython", ],
+    setup_requires = ['setuptools>=18.0','Cython'],
+    install_requires = ['Cython'],
     ext_modules = [Extension("DTLSSocket.dtls",
                 [
                  "DTLSSocket/dtls.pyx",
