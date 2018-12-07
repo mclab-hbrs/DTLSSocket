@@ -23,7 +23,7 @@ class prepare_tinydtls(build_ext):
 
 setup(
     name="DTLSSocket",
-    version='0.1.7',
+    version='0.1.9',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     author      = "Jannis Konrad",
     author_email= "Jannis.Konrad@h-brs.de",
@@ -51,7 +51,9 @@ setup(
                 define_macros=[('DTLSv12', '1'),
                                ('WITH_SHA256', '1'),
                                ('DTLS_CHECK_CONTENTTYPE', '1'),
-                               ('_GNU_SOURCE', '1')],
-                undef_macros = [ "NDEBUG" ],
+                               ('_GNU_SOURCE', '1'),
+                                ('NDEBUG', '1'),
+                              ],
+#                undef_macros = [ "NDEBUG" ],
                 ),]
     )
