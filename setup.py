@@ -26,7 +26,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="DTLSSocket",
-    version='0.1.10',
+    version='0.1.11a2',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -50,7 +50,8 @@ setup(
                  "DTLSSocket/tinydtls/peer.c",
                  "DTLSSocket/tinydtls/session.c",
                  "DTLSSocket/tinydtls/aes/rijndael.c",
-                 "DTLSSocket/tinydtls/sha2/sha2.c"
+                 "DTLSSocket/tinydtls/sha2/sha2.c",
+                 "DTLSSocket/tinydtls/platform-specific/dtls_prng_posix.c",
                  ],
                 include_dirs=['DTLSSocket/tinydtls'],
                 define_macros=[('DTLSv12', '1'),
