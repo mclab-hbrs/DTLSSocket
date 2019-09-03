@@ -23,7 +23,7 @@ class prepare_tinydtls(build_ext):
 
 setup(
     name="DTLSSocket",
-    version='0.1.9',
+    version='0.1.11a1',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     author      = "Jannis Konrad",
     author_email= "Jannis.Konrad@h-brs.de",
