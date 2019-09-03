@@ -45,7 +45,8 @@ setup(
                  "DTLSSocket/tinydtls/peer.c",
                  "DTLSSocket/tinydtls/session.c",
                  "DTLSSocket/tinydtls/aes/rijndael.c",
-                 "DTLSSocket/tinydtls/sha2/sha2.c"
+                 "DTLSSocket/tinydtls/sha2/sha2.c",
+                 "DTLSSocket/tinydtls/platform-specific/dtls_prng_posix.c",
                  ],
                 include_dirs=['DTLSSocket/tinydtls'],
                 define_macros=[('DTLSv12', '1'),
