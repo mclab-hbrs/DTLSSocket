@@ -21,10 +21,15 @@ class prepare_tinydtls(build_ext):
             run_command(command)
         build_ext.run(self)
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name="DTLSSocket",
     version='0.1.10',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     author      = "Jannis Konrad",
     author_email= "Jannis.Konrad@h-brs.de",
     url         = "https://git.fslab.de/jkonra2m/tinydtls-cython",
