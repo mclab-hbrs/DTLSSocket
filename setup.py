@@ -1,5 +1,6 @@
 import os.path
 import subprocess
+import sys
 
 from setuptools import setup
 from setuptools.extension import Extension
@@ -9,7 +10,12 @@ class prepare_tinydtls(build_ext):
     def run(self):
         def run_command(args):
             print("Running:", " ".join(args))
-            subprocess.check_call(args, cwd=os.path.join(os.path.dirname(__file__), "DTLSSocket","tinydtls"))
+            try:
+                subprocess.check_call(args, cwd=os.path.join(os.path.dirname(__file__), "DTLSSocket","tinydtls"))
+            except Exception as e:
+                print(f"Trying to run {args[0]} failed, please make sure {args[0]} is installed")
+                sys.exit(1)
+
         commands =  [
                     ["autoconf"],
                     ["autoheader"],
@@ -26,7 +32,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="DTLSSocket",
-    version='0.1.12',
+    version='0.1.13',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     long_description=long_description,
     long_description_content_type="text/markdown",
