@@ -50,6 +50,7 @@ setup(
                  "DTLSSocket/tinydtls/crypto.c",
                  "DTLSSocket/tinydtls/dtls.c",
                  "DTLSSocket/tinydtls/dtls_debug.c",
+                 "DTLSSocket/tinydtls/ecc/ecc.c",
                  "DTLSSocket/tinydtls/dtls_time.c",
                  "DTLSSocket/tinydtls/hmac.c",
                  "DTLSSocket/tinydtls/netq.c",
