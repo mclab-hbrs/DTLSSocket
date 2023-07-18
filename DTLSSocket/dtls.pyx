@@ -1,3 +1,4 @@
+# cython: language_level=2
 cimport tdtls
 from tdtls cimport dtls_context_t, dtls_handler_t, session_t, dtls_alert_level_t, dtls_credentials_type_t
 from libc.stdint cimport uint8_t
