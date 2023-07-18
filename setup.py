@@ -32,12 +32,12 @@ with open("README.md", "r") as fh:
 
 setup(
     name="DTLSSocket",
-    version='0.1.15',
+    version='0.1.16',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author      = "Jannis Konrad",
-    author_email= "Jannis.Konrad@h-brs.de",
+    author_email= "Kabel42@gmail.com",
     url         = "https://git.fslab.de/jkonra2m/tinydtls-cython",
     py_modules  = [ "DTLSSocket.DTLSSocket"],
     cmdclass    = {"build_ext": prepare_tinydtls},
