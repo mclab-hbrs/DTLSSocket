@@ -1,2 +1,2 @@
 [build-system]
-requires = ["Cython", "setuptools", "wheel"]
+requires = ["Cython<3", "setuptools", "wheel"]
