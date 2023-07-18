@@ -83,10 +83,14 @@ cdef extern from "tinydtls/dtls.h":
     unsigned char readbuf[1400] #DTLS_MAX_BUF
   
   ctypedef struct dtls_handler_t:
-    int (*write)(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len)
-    int (*read)(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len)
-    int (*event)(dtls_context_t *ctx, session_t *session, dtls_alert_level_t level, unsigned short code)
-    int (*get_psk_info)(dtls_context_t *ctx, const session_t *session, dtls_credentials_type_t type, const unsigned char *desc, size_t desc_len, unsigned char *result, size_t result_length)
+    int (*write)(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len) except -1
+    # Actually, the return value is ignored by tinydtls; -1 is used for errors
+    # for consistency with write and get_psk_info
+    int (*read)(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len) except -1
+    # Actually, the return value is ignored by tinydtls; -1 is used for errors
+    # for consistency with write and get_psk_info
+    int (*event)(dtls_context_t *ctx, session_t *session, dtls_alert_level_t level, unsigned short code) except -1
+    int (*get_psk_info)(dtls_context_t *ctx, const session_t *session, dtls_credentials_type_t type, const unsigned char *desc, size_t desc_len, unsigned char *result, size_t result_length) except -1
   
   void dtls_init()
   void dtls_set_handler(dtls_context_t *ctx, dtls_handler_t *h) #inline...
