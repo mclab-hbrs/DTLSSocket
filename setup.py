@@ -41,8 +41,6 @@ setup(
     url         = "https://git.fslab.de/jkonra2m/tinydtls-cython",
     py_modules  = [ "DTLSSocket.DTLSSocket"],
     cmdclass    = {"build_ext": prepare_tinydtls},
-    setup_requires = ['setuptools>=18.0','Cython<3'],
-    install_requires = ['Cython<3'],
     ext_modules = [Extension("DTLSSocket.dtls",
                 [
                  "DTLSSocket/dtls.pyx",
