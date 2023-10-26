@@ -1,3 +1,4 @@
+# cython: language_level=2
 cimport tdtls
 from tdtls cimport dtls_context_t, dtls_handler_t, session_t, dtls_alert_level_t, dtls_credentials_type_t
 from libc.stdint cimport uint8_t
@@ -18,7 +19,7 @@ DTLS_LOG_INFO   = tdtls.DTLS_LOG_INFO
 DTLS_LOG_DEBUG  = tdtls.DTLS_LOG_DEBUG
 
 
-cdef int _write(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len):
+cdef int _write(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len) except -1:
   """Send data to socket"""
   self = <object>(ctx.app)
   data = buf[:len]
@@ -28,7 +29,7 @@ cdef int _write(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len)
   cdef int ret = self.pycb['write']((ip, port), data)
   return ret
   
-cdef int _read(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len):
+cdef int _read(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len) except -1:
   """Send data to application"""
   self = <object>(ctx.app)
   data = buf[:len]
@@ -38,7 +39,7 @@ cdef int _read(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len):
   cdef int ret = self.pycb['read']((ip, port), data)
   return ret
   
-cdef int _event(dtls_context_t *ctx, session_t *session, dtls_alert_level_t level, unsigned short code):
+cdef int _event(dtls_context_t *ctx, session_t *session, dtls_alert_level_t level, unsigned short code) except -1:
   """The event handler is called when a message from the alert protocol is received or the state of the DTLS session changes."""
   self = <object>(ctx.app)
   if self.pycb['event'] != None:
@@ -53,7 +54,7 @@ cdef int _get_psk_info(dtls_context_t *ctx,
 		      const unsigned char *desc_data,
 		      size_t desc_len,
 		      unsigned char *result_data,
-		      size_t result_length):
+		      size_t result_length) except -1:
   """Called during handshake to get information related to the psk key exchange. 
    
    The type of information requested is indicated by @p type 
