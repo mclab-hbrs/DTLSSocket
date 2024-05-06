@@ -242,7 +242,9 @@ cdef class DTLS:
   #dtls_peer_t *dtls_get_peer(const dtls_context_t *context, const session_t *session);
   #void dtls_reset_peer(dtls_context_t *ctx, dtls_peer_t *peer)
   def resetPeer(self, Session session: Session):
-    tdtls.dtls_reset_peer(self.ctx, tdtls.dtls_get_peer(self.ctx, session.getSession()))
+    peer = tdtls.dtls_get_peer(self.ctx, &session.session)
+    if peer:
+      tdtls.dtls_reset_peer(self.ctx, peer)
 
   #int dtls_write(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len)
   def write(self, Session remote: Session, data: bytes):
