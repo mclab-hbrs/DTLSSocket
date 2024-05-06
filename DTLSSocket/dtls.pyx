@@ -156,18 +156,20 @@ cdef class Connection(Session):
   def __init__(self, DTLS dtls, Session s):
     super().__init__(addr = s.addr, port = s.port, flowinfo=s.flowinfo, scope_id=s.scope_id)
     self.d = dtls
-  def __del__(self):
-    self.d.close(self)
-    self.d.resetPeer(self)
+  def __dealloc__(self):
+    peer = tdtls.dtls_get_peer(self.d.ctx, &self.session)
+    if peer:
+      tdtls.dtls_reset_peer(self.d.ctx, peer)
 
 cdef class MCConnection(Session):
   cdef DTLS d
   def __init__(self, DTLS dtls, Session s):
     super().__init__(addr = s.addr, port = s.port, flowinfo=s.flowinfo, scope_id=s.scope_id)
     self.d = dtls
-  def __del__(self):
-    self.d.joinLeaveGroupe(self.addr, self.d._sock, join=False)
-    self.d.resetPeer(self)
+  def __dealloc__(self):
+    peer = tdtls.dtls_get_peer(self.d.ctx, &self.session)
+    if peer:
+      tdtls.dtls_reset_peer(self.d.ctx, peer)
 
 cdef class DTLS:
   cdef dtls_context_t *ctx
