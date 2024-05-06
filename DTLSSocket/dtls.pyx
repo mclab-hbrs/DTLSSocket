@@ -156,18 +156,20 @@ cdef class Connection(Session):
   def __init__(self, DTLS dtls, Session s):
     super().__init__(addr = s.addr, port = s.port, flowinfo=s.flowinfo, scope_id=s.scope_id)
     self.d = dtls
-  def __del__(self):
-    self.d.close(self)
-    self.d.resetPeer(self)
+  def __dealloc__(self):
+    peer = tdtls.dtls_get_peer(self.d.ctx, &self.session)
+    if peer:
+      tdtls.dtls_reset_peer(self.d.ctx, peer)
 
 cdef class MCConnection(Session):
   cdef DTLS d
   def __init__(self, DTLS dtls, Session s):
     super().__init__(addr = s.addr, port = s.port, flowinfo=s.flowinfo, scope_id=s.scope_id)
     self.d = dtls
-  def __del__(self):
-    self.d.joinLeaveGroupe(self.addr, self.d._sock, join=False)
-    self.d.resetPeer(self)
+  def __dealloc__(self):
+    peer = tdtls.dtls_get_peer(self.d.ctx, &self.session)
+    if peer:
+      tdtls.dtls_reset_peer(self.d.ctx, peer)
 
 cdef class DTLS:
   cdef dtls_context_t *ctx
@@ -242,7 +244,9 @@ cdef class DTLS:
   #dtls_peer_t *dtls_get_peer(const dtls_context_t *context, const session_t *session);
   #void dtls_reset_peer(dtls_context_t *ctx, dtls_peer_t *peer)
   def resetPeer(self, Session session: Session):
-    tdtls.dtls_reset_peer(self.ctx, tdtls.dtls_get_peer(self.ctx, session.getSession()))
+    peer = tdtls.dtls_get_peer(self.ctx, &session.session)
+    if peer:
+      tdtls.dtls_reset_peer(self.ctx, peer)
 
   #int dtls_write(dtls_context_t *ctx, session_t *session, uint8 *buf, size_t len)
   def write(self, Session remote: Session, data: bytes):
