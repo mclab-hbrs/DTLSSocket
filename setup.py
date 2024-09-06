@@ -17,8 +17,7 @@ class prepare_tinydtls(build_ext):
                 sys.exit(1)
 
         commands =  [
-                    ["sh", "-c", "autoconf"],
-                    ["sh", "-c", "autoheader"],
+                    ["sh", "-c", "./autogen.sh"],
                     ["sh", "-c", "./configure"], # no --without-ecc
                     ]
         if not os.path.exists(os.path.join(os.path.dirname(__file__), 'DTLSSocket','tinydtls','dtls.c')):
@@ -56,6 +55,7 @@ setup(
                  "DTLSSocket/tinydtls/peer.c",
                  "DTLSSocket/tinydtls/session.c",
                  "DTLSSocket/tinydtls/aes/rijndael.c",
+                 "DTLSSocket/tinydtls/aes/rijndael_wrap.c",
                  "DTLSSocket/tinydtls/sha2/sha2.c",
                  "DTLSSocket/tinydtls/platform-specific/dtls_prng_posix.c",
                  ],
@@ -65,6 +65,7 @@ setup(
                                ('DTLS_CHECK_CONTENTTYPE', '1'),
                                ('_GNU_SOURCE', '1'),
                                 ('NDEBUG', '1'),
+                                ('uint8_t', 'u_int8_t'),
                               ],
 #                undef_macros = [ "NDEBUG" ],
                 ),]
