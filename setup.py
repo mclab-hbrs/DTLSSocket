@@ -31,7 +31,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="DTLSSocket",
-    version='0.2.2',
+    version='0.2.3',
     license='EPL-1.0',
     description = "DTLSSocket is a cython wrapper for tinydtls with a Socket like interface",
     long_description=long_description,
