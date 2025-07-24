@@ -38,7 +38,7 @@ setup(
     long_description_content_type="text/markdown",
     author      = "Jannis Konrad",
     author_email= "Kabel42@gmail.com",
-    url         = "https://git.fslab.de/jkonra2m/tinydtls-cython",
+    url         = "https://github.com/mclab-hbrs/DTLSSocket",
     classifiers = ["License :: OSI Approved :: Eclipse Public License 1.0 (EPL-1.0)",],
     py_modules  = [ "DTLSSocket.DTLSSocket"],
     cmdclass    = {"build_ext": prepare_tinydtls},
